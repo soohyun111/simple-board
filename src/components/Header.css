@@ -1,0 +1,15 @@
+.header {
+  position: sticky; 
+  top: 0;           
+  z-index: 1000;
+
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
