@@ -1,3 +1,4 @@
+import Banner from "./components/Banner";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
@@ -9,6 +10,7 @@ export default function App() {
   return (
     <div className="app">
       <Header />
+      <Banner />
 
       <div className="app-body">
         <Sidebar />

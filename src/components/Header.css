@@ -1,15 +1,17 @@
 .header {
-  position: sticky; 
+  width: 100%;
   top: 0;           
   z-index: 1000;
 
-  background-color: #2563eb;
+  background-color: #735c4e;
   color: #ffffff;
   padding: 1rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
-.header-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+.header-group{
+  display: flex;
+  max-width: 60rem;
+  margin: 0 auto;
+  align-items: center;
 }
