@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { House, Bell, Logs, Image, ExternalLink, PencilLine} from "lucide-react";
 import "./Sidebar.css";
 
@@ -7,21 +8,21 @@ export default function Sidebar() {
       <div className="sidebar-wrapper">
         <div className="sidebar">
           <nav className="sidebar-nav">
-            <a className="sidebar-item" href="#">
+            <Link to ="/" className="sidebar-item">
               <House /><span className="sidebar-text">홈</span>
-            </a>
+            </Link>
 
-            <a className="sidebar-item" href="#">
+            <Link to ="/" className="sidebar-item">
               <Bell /><span className="sidebar-text">공지사항</span>
-            </a>
+            </Link>
 
-            <a className="sidebar-item sidebar-item-active" href="#">
+            <Link to ="/" className="sidebar-item sidebar-item-active">
               <Logs /><span className="sidebar-text">자유게시판</span>
-            </a>
+            </Link>
 
-            <a className="sidebar-item" href="#">
+            <Link to ="/" className="sidebar-item">
               <Image /><span className="sidebar-text">사진게시판</span>
-            </a>
+            </Link>
           </nav>
 
           <nav className="sidebar-nav">
@@ -42,7 +43,7 @@ export default function Sidebar() {
             </a>
           </nav>
 
-          <button className="write-button"><PencilLine /><span>글쓰기</span></button>         
+          <Link to ="/Write" className="write-button"><PencilLine /><span>글쓰기</span></Link>         
         </div>
       </div>
       
