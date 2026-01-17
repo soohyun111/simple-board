@@ -30,9 +30,9 @@ export default function Detail() {
 
       <div className="detail-actions">
         <div className="left-buttons">
-          <button className="btn" disabled={!prevId} onClick={() => prevId && navigate(`/posts/${prevId}`)}> 이전글 </button>
+          <button className="btn" disabled={!prevId} onClick={() => prevId && navigate(`/posts/${prevId}`)}> {"< 이전글"} </button>
           <button className="btn" onClick={() => navigate("/")}>목록</button>
-          <button className="btn" disabled={!nextId} onClick={() => nextId && navigate(`/posts/${nextId}`)}>다음글</button>
+          <button className="btn" disabled={!nextId} onClick={() => nextId && navigate(`/posts/${nextId}`)}>{"다음글 >"}</button>
         </div>
 
         <div className="right-buttons">

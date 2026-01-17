@@ -44,11 +44,8 @@ export default function List() {
 
         <form className="search-form">
           <div className="search-input-wrapper">
-            <Search className="search-icon" /><input
-              type="text"
-              placeholder="검색어를 입력하세요"
-              className="search-input"
-            />
+            <Search className="search-icon" />
+              <input type="text" placeholder="검색어를 입력하세요" className="search-input"/>
           </div>
           <button className="search-button">검색</button>
         </form>

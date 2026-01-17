@@ -1,21 +1,25 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Banner from "./components/Banner";
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import SidebarPC from "./components/SidebarPC";
+import SidebarMobile from "./components/SidebarMobile";
 import Footer from "./components/Footer";
 import List from "./Pages/List";
 import Detail from "./Pages/Detail";
 import Write from "./Pages/Write";
 
 export default function App() {
-  return (
+   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  return (
     <div className="app">
-      <Header />
+       <Header isSidebarOpen={isSidebarOpen} onToggleSidebar={() => setIsSidebarOpen(prev => !prev)} />
       <Banner />
 
       <div className="app-body">
-        <Sidebar />
+        <SidebarPC />
+        <SidebarMobile isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}/>
 
         <main className="app-list">
           <Routes>

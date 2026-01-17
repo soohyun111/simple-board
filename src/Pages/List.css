@@ -4,8 +4,7 @@
   margin: 0 auto;
   padding: 2rem 1rem;
   background-color: #ffffff;
-  border-radius: 0.5rem;
-  margin-top: 2.5rem; 
+  border-radius: 0.5rem; 
 }
 
 /* 상단 헤더 */
@@ -28,7 +27,7 @@
   font-weight: 600;
 }
 
-/* 검색 */
+/* 검색창 */
 .search-form {
   display: flex;
   gap: 0.5rem;
@@ -71,6 +70,25 @@
 
 .search-button:hover {
   background-color: #584133;
+}
+
+@media (max-width: 768px) {
+  .board-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+  .search-form  {
+    width: 100%;
+    margin-top: 1rem;
+    align-items: center;
+  }
 }
 
 /* 테이블 */

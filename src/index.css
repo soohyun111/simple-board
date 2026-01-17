@@ -21,9 +21,15 @@ body{
 
 .app-list {
   flex: 1;
-  padding: 1rem 1rem 1rem 0;
+  padding: 2.5rem 1rem;
 
 
   flex: 1;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .app-list {
+    padding: 1rem;
+  }
 }

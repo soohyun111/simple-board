@@ -2,7 +2,6 @@
   background-color: #ffffff;
   padding: 1.5rem;
   border-radius: 0.5rem;
-  margin-top: 2.5rem; 
 }
 
 /* 제목 */
@@ -74,4 +73,18 @@
 .btn.delete {
   color: #d32f2f;
   border-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .detail-actions {
+    border-top: 1px solid #ddd;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .left-buttons {
+    margin-top: 1rem;
+  }
+
 }
