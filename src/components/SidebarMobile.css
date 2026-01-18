@@ -41,14 +41,6 @@
   right: 1rem;
 }
 
-
-
-.sidebar-header {
-  border-top: 2px solid #babcc1;
-  border-bottom: 2px solid #e5e7eb;
-  padding: 1rem;
-}
-
 .write-button {
   display: flex;
   width: 100%;
@@ -69,4 +61,11 @@
   background-color: #584133;
 }
 
+@media (max-width: 768px) {
 
+  .sidebar-header {
+  border-top: 2px solid #babcc1;
+  border-bottom: 2px solid #e5e7eb;
+  padding: 1rem;
+}
+}
