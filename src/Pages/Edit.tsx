@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
-import { useNavigate } from "react-router-dom";
 import { PencilLine } from "lucide-react";
 import "./Write.css";
 
-export default function Write() {
+export default function Edit() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id : string }>();
+  const postId = Number(id);
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+   useEffect(() => {
+    if (!id) return;
+
+    const fetchPost = async () => {
+      const { data, error } = await supabase
+        .from("posts")
+        .select("title, author, content")
+        .eq("id", postId)
+        .single();
+
+      if (error) {
+        alert("게시글을 불러올 수 없습니다.");
+        navigate(-1);
+        return;
+      }
+
+      setTitle(data.title);
+      setContent(data.content);
+      setAuthor(data.author);
+      setLoading(false);
+    };
+
+    fetchPost();
+  }, [id, postId, navigate]);
+
+
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     /* 유효성 검사*/
@@ -27,30 +55,26 @@ export default function Write() {
       return;
     }
 
-    setLoading(true);
-
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("posts")
-      .insert([{ title, author, content }])
-      .select()
-      .single();
-
+      .update({ title, author, content })
+      .eq("id", Number(id));
 
     if (error) {
-      alert("글 등록 실패");
+      alert("글 수정 실패");
       console.error(error);
       return;
     }
 
-    alert("글이 등록되었습니다.");
-    navigate(`/posts/${data.id}`);
+    alert("글이 수정되었습니다.");
+    navigate(`/posts/${id}`);
   };
 
   return (
     <section className="write">
-        <h2 className="write-title"><PencilLine /><span>글쓰기</span></h2>
+        <h2 className="write-title"><PencilLine /><span>글 수정하기</span></h2>
 
-      <form className="write-form" onSubmit={handleSubmit}>
+      <form className="write-form" onSubmit={handleUpdate}>
         <div className="write-field">
           <label>제목</label>
           <input
@@ -86,7 +110,7 @@ export default function Write() {
             취소
           </button>
           <button type="submit" className="btn-submit">
-            {loading ? "등록중..." : "등록"}
+            {loading ? "수정중..." : "수정"}
           </button>
         </div>
       </form>

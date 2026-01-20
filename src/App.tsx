@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import List from "./Pages/List";
 import Detail from "./Pages/Detail";
 import Write from "./Pages/Write";
+import Edit from "./Pages/Edit";
 
 export default function App() {
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,8 +25,9 @@ export default function App() {
         <main className="app-list">
           <Routes>
             <Route path="/" element={<List />} />
-            <Route path="/posts/:id" element={<Detail/>} />
             <Route path="/write" element={<Write/>} />
+            <Route path="/posts/:id" element={<Detail/>} />
+            <Route path="/edit/:id" element={<Edit />} />
           </Routes>
         </main>
       </div>

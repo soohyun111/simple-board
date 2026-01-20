@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { NotepadText } from "lucide-react";
 import "./Detail.css";
@@ -16,11 +16,15 @@ type Post = {
 export default function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
 
   const [post, setPost] = useState<Post | null>(null);
   const [prevPost, setPrevPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const page = Number(searchParams.get("page")) || 1;
+  const searchKeyword = searchParams.get("keyword") ||"";
 
   const lastFetchedId = useRef<string | null>(null);
 
@@ -86,6 +90,25 @@ export default function Detail() {
     fetchPostAndIncrement();
   }, [id, navigate]);
 
+  const handleDelete = async () => {
+  const ok = confirm("정말 이 게시글을 삭제하시겠습니까?");
+  if (!ok) return;
+
+  const { error } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", post?.id);
+
+  if (error) {
+    console.error(error);
+    alert("삭제에 실패했습니다.");
+    return;
+  }
+
+  alert("삭제되었습니다.");
+  navigate("/");
+};
+
   /* 추후 수정*/
   if (loading) {
     return <div>로딩 중...</div>;
@@ -112,15 +135,15 @@ export default function Detail() {
       <div className="detail-actions">
         <div className="left-buttons">
           <button className="btn" disabled={!prevPost} onClick={() => prevPost && navigate(`/posts/${prevPost.id}`)}> {"< 이전글"} </button>
-          <button className="btn" onClick={() => navigate("/")}>목록</button>
+          <button className="btn" onClick={() => navigate(`/?page=${page}&keyword=${searchKeyword}`)}>목록</button>
           <button className="btn" disabled={!nextPost} onClick={() => nextPost && navigate(`/posts/${nextPost.id}`)}>{"다음글 >"}</button>
         </div>
 
         <div className="right-buttons">
-          <button className="btn">수정</button>
-          <button className="btn delete">삭제</button>
+          <button 
+          className="btn" onClick={() => navigate(`/edit/${post.id}`)}>수정</button>
+          <button className="btn delete" onClick={handleDelete}>삭제</button>
         </div>
       </div>
     </div>
-  );
-}
+  );}
