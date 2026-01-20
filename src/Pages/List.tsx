@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { Logs, Search } from "lucide-react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import Swal from "sweetalert2";
 import "./List.css";
 
 type Post = {
@@ -50,7 +52,7 @@ export default function List() {
 
          if(error){
           console.error(error);
-          alert("게시물을 불러오지 못했습니다.");
+          Swal.fire("게시물을 불러오지 못했습니다.");
           return;
         } 
 
@@ -87,7 +89,7 @@ export default function List() {
         startPage = Math.max(1, endPage - pageGroupSize + 1);
       }
 
-  if (loading) return <p>로딩중...</p> //추후 수정
+  if (loading) return <LoadingSpinner/>
 
   return (
     <div className="board-container">

@@ -2,6 +2,7 @@ import { useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { PencilLine } from "lucide-react";
+import Swal from "sweetalert2";
 import "./Write.css";
 
 export default function Edit() {
@@ -25,7 +26,7 @@ export default function Edit() {
         .single();
 
       if (error) {
-        alert("게시글을 불러올 수 없습니다.");
+        Swal.fire("게시글을 불러올 수 없습니다.");
         navigate(-1);
         return;
       }
@@ -45,13 +46,13 @@ export default function Edit() {
 
     /* 유효성 검사*/
     if (!title) {
-      alert("제목을 입력해주세요.");
+      Swal.fire("제목을 입력해주세요.");
       return;
     } else if(!author){
-      alert("작성자를 입력해주세요.");
+      Swal.fire("작성자를 입력해주세요.");
       return;
     }else if(!content){
-      alert("내용을 입력해주세요");
+      Swal.fire("내용을 입력해주세요");
       return;
     }
 
@@ -61,12 +62,12 @@ export default function Edit() {
       .eq("id", Number(id));
 
     if (error) {
-      alert("글 수정 실패");
+      Swal.fire("글 수정 실패");
       console.error(error);
       return;
     }
 
-    alert("글이 수정되었습니다.");
+    Swal.fire("글이 수정되었습니다.");
     navigate(`/posts/${id}`);
   };
 

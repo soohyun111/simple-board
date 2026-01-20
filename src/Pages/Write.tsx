@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { PencilLine } from "lucide-react";
+import Swal from "sweetalert2";
 import "./Write.css";
 
 export default function Write() {
@@ -17,13 +18,13 @@ export default function Write() {
 
     /* 유효성 검사*/
     if (!title) {
-      alert("제목을 입력해주세요.");
+      Swal.fire("제목을 입력해주세요.");
       return;
     } else if(!author){
-      alert("작성자를 입력해주세요.");
+      Swal.fire("작성자를 입력해주세요.");
       return;
     }else if(!content){
-      alert("내용을 입력해주세요");
+      Swal.fire("내용을 입력해주세요");
       return;
     }
 
@@ -37,12 +38,12 @@ export default function Write() {
 
 
     if (error) {
-      alert("글 등록 실패");
+      Swal.fire("글 등록 실패");
       console.error(error);
       return;
     }
 
-    alert("글이 등록되었습니다.");
+    Swal.fire("글이 등록되었습니다.");
     navigate(`/posts/${data.id}`);
   };
 
@@ -82,7 +83,7 @@ export default function Write() {
         </div>
 
         <div className="write-actions">
-        <button type="button" className="btn-cancel" onClick={ () => navigate(-1) }>
+        <button type="button" className="btn-cancel" onClick={ () => navigate("/") }>
             취소
           </button>
           <button type="submit" className="btn-submit">

@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { NotepadText } from "lucide-react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import Swal from "sweetalert2";
 import "./Detail.css";
 
 type Post = {
@@ -47,7 +49,7 @@ export default function Detail() {
 
       if (error || !data) {
         console.error(error);
-        alert("게시글을 불러오지 못했습니다");
+        Swal.fire("게시글을 불러오지 못했습니다");
         navigate(-1);
         return;
       }
@@ -91,8 +93,17 @@ export default function Detail() {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-  const ok = confirm("정말 이 게시글을 삭제하시겠습니까?");
-  if (!ok) return;
+  if (!post) return;
+
+  const result = await Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+      customClass: { confirmButton: "swal-delete-btn"},
+    });
+
+    if (!result.isConfirmed) return;
 
   const { error } = await supabase
     .from("posts")
@@ -101,17 +112,16 @@ export default function Detail() {
 
   if (error) {
     console.error(error);
-    alert("삭제에 실패했습니다.");
+    Swal.fire("삭제에 실패했습니다.");
     return;
   }
 
-  alert("삭제되었습니다.");
+  Swal.fire("삭제되었습니다.");
   navigate("/");
 };
 
-  /* 추후 수정*/
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <LoadingSpinner />
   }
 
   if (!post) {

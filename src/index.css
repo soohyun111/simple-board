@@ -28,6 +28,52 @@ body{
   margin: 0 auto;
 }
 
+/* modal 기본설정 */
+.swal2-popup {
+  width: 400px !important;
+  max-width: 90vw !important;
+}
+
+.swal2-title {
+  padding: 3rem 3rem 1rem;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.swal2-confirm,
+.swal2-cancel {
+  width: 200px;
+  height: 50px;
+  font-size: 20px !important;
+  padding: 10px 26px !important;
+  border-radius: 8px !important;
+}
+
+.swal2-confirm {
+  background-color: #735c4e;
+}
+
+.swal2-confirm:hover {
+  background-color: #584133;
+}
+
+.swal-delete-btn {
+  background-color: #eb0e0e !important;
+}
+
+.swal-delete-btn:hover {
+  background-color: #c20505 !important;
+}
+
+.swal2-cancel {
+  background-color: #bdbdbd !important;
+  color: #000 !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #a8a8a8 !important;
+}
+
 @media (max-width: 768px) {
   .app-list {
     padding: 1rem;
