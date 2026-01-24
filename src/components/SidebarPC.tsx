@@ -33,7 +33,7 @@ export default function SidebarPC() {
               <span className="sidebar-text">공지사항</span>
             </Link>
 
-            <Link to="/posts" className="sidebar-item sidebar-item-active">
+            <Link to="/posts" className="sidebar-item">
               <Logs />
               <span className="sidebar-text">자유게시판</span>
             </Link>

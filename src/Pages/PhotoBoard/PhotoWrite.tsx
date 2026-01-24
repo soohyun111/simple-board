@@ -16,17 +16,17 @@ export default function PhotoWrite() {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 업로드 버튼 제어 (antd 기본 업로드 막기)
-  const handleChange = (info: { fileList: UploadFile[] }) => {
-    setFileList(
-      info.fileList.map((file) => ({
-        ...file,
-        originFileObj: file.originFileObj,
-      })),
-    );
+  // 파일명의 한글/공백/특수문자 제거
+  const normalizeFileName = (name: string) => {
+    const ext = name.split(".").pop();
+    return `${crypto.randomUUID()}.${ext}`;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    setFileList(fileList);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) {
@@ -61,10 +61,11 @@ export default function PhotoWrite() {
       let thumbnailUrl: string | null = null;
 
       for (let i = 0; i < fileList.length; i++) {
-        const file = fileList[i].originFileObj as File;
+        const file = fileList[i].originFileObj;
         if (!file) continue;
 
-        const filePath = `${post.id}/${Date.now()}-${file.name}`;
+        const safeFileName = normalizeFileName(file.name);
+        const filePath = `${post.id}/${safeFileName}`;
 
         const { error: uploadError } = await supabase.storage
           .from("images")
@@ -79,7 +80,7 @@ export default function PhotoWrite() {
 
         const imageUrl = data.publicUrl;
 
-        if (!thumbnailUrl) {
+        if (i === 0) {
           thumbnailUrl = imageUrl;
         }
 
@@ -92,18 +93,14 @@ export default function PhotoWrite() {
 
       // 썸네일 업데이트
       if (thumbnailUrl) {
-        const { error } = await supabase
+        await supabase
           .from("photo_posts")
           .update({ thumbnail_url: thumbnailUrl })
           .eq("id", post.id);
-
-        if (error) {
-          console.error("썸네일 업데이트 실패:", error);
-        }
       }
 
       Swal.fire("글이 등록되었습니다.");
-      navigate(`/photos/${post.id}`);
+      navigate(`/photos?modal=${post.id}`);
     } catch (err) {
       console.error(err);
       Swal.fire("등록 실패");
@@ -143,10 +140,10 @@ export default function PhotoWrite() {
         <Upload
           listType="picture"
           multiple
-          fileList={fileList}
-          onChange={handleChange}
-          beforeUpload={() => false}
           accept="image/*"
+          fileList={fileList}
+          beforeUpload={() => false}
+          onChange={handleChange}
         >
           <Button icon={<UploadOutlined />}>사진 업로드</Button>
         </Upload>

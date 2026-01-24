@@ -49,16 +49,12 @@ export default function SidebarMobile({ isOpen, onClose }: Props) {
                 <span className="sidebar-text">공지사항</span>
               </Link>
 
-              <Link
-                to="/posts"
-                className="sidebar-item sidebar-item-active"
-                onClick={onClose}
-              >
+              <Link to="/posts" className="sidebar-item" onClick={onClose}>
                 <Logs />
                 <span className="sidebar-text">자유게시판</span>
               </Link>
 
-              <Link to="/photo" className="sidebar-item" onClick={onClose}>
+              <Link to="/photos" className="sidebar-item" onClick={onClose}>
                 <Image />
                 <span className="sidebar-text">사진게시판</span>
               </Link>
@@ -97,7 +93,7 @@ export default function SidebarMobile({ isOpen, onClose }: Props) {
 
               <aside>
                 <Link to={getWritePath()}>
-                  <button className="write-button">
+                  <button className="write-button" onClick={onClose}>
                     <PencilLine />
                     <span>글쓰기</span>
                   </button>

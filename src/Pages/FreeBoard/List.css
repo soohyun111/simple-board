@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .title-group {
@@ -44,12 +44,10 @@
   box-sizing: border-box;
 }
 
-/* input + 아이콘 래퍼 */
 .search-input-wrapper {
   position: relative;
 }
 
-/* lucide 아이콘 */
 .search-icon {
   position: absolute;
   left: 0.75rem;
