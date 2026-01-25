@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { X } from "lucide-react";
+import Swal from "sweetalert2";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,6 +15,7 @@ type Props = {
   postId: number;
   onClose: () => void;
   onViewUpdate: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
 type PhotoImage = {
@@ -31,7 +34,14 @@ interface PhotoPost {
   views: number;
 }
 
-export default function PhotoDetail({ postId, onClose, onViewUpdate }: Props) {
+export default function PhotoDetail({
+  postId,
+  onClose,
+  onViewUpdate,
+  onDelete,
+}: Props) {
+  const navigate = useNavigate();
+
   const [post, setPost] = useState<PhotoPost | null>(null);
   const [images, setImages] = useState<PhotoImage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -101,6 +111,33 @@ export default function PhotoDetail({ postId, onClose, onViewUpdate }: Props) {
     };
   }, []);
 
+  // 게시글 삭제
+  const handleDelete = async () => {
+    if (!post) return;
+
+    const result = await Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+      customClass: { confirmButton: "swal-delete-btn" },
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await supabase.from("photo_images").delete().eq("post_id", post.id);
+      await supabase.from("photo_posts").delete().eq("id", post.id);
+
+      Swal.fire("삭제되었습니다.");
+      onDelete(post.id);
+      onClose();
+    } catch (err) {
+      console.error(err);
+      Swal.fire("삭제에 실패했습니다.");
+    }
+  };
+
   if (!post) return null;
 
   if (loading) {
@@ -144,6 +181,19 @@ export default function PhotoDetail({ postId, onClose, onViewUpdate }: Props) {
         <div className="photo-modal-meta">
           <span>{new Date(post.created_at).toLocaleDateString()}</span>
           <span>조회수 {post.views ?? 0}</span>
+          <span>
+            <div className="modal-right-buttons">
+              <button
+                className="btn"
+                onClick={() => navigate(`/photoEdit/${post.id}`)}
+              >
+                수정
+              </button>
+              <button className="btn delete" onClick={handleDelete}>
+                삭제
+              </button>
+            </div>
+          </span>
         </div>
       </div>
     </div>

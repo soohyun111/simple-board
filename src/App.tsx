@@ -10,8 +10,8 @@ import Detail from "./Pages/FreeBoard/Detail";
 import Write from "./Pages/FreeBoard/Write";
 import Edit from "./Pages/FreeBoard/Edit";
 import PhotoList from "./Pages/PhotoBoard/PhotoList";
-import PhotoDetail from "./Pages/PhotoBoard/PhotoDetail";
 import PhotoWrite from "./Pages/PhotoBoard/PhotoWrite";
+import PhotoEdit from "./Pages/PhotoBoard/PhotoEdit";
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -39,8 +39,8 @@ export default function App() {
             <Route path="/edit/:id" element={<Edit />} />
 
             <Route path="/photos" element={<PhotoList />} />
-            <Route path="/photos/:id" element={<PhotoDetail />} />
             <Route path="/photoWrite" element={<PhotoWrite />} />
+            <Route path="/photoEdit/:id" element={<PhotoEdit />} />
           </Routes>
         </main>
       </div>

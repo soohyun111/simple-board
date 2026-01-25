@@ -100,11 +100,12 @@ export default function Edit() {
           <button
             type="button"
             className="btn-cancel"
+            disabled={loading}
             onClick={() => navigate(-1)}
           >
             취소
           </button>
-          <button type="submit" className="btn-submit">
+          <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? "수정중..." : "수정"}
           </button>
         </div>

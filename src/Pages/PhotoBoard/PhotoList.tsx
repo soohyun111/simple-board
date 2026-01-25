@@ -6,7 +6,6 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import Swal from "sweetalert2";
 import PhotoDetail from "./PhotoDetail";
 import "./PhotoList.css";
-import "../FreeBoard/List";
 
 type PhotoPost = {
   id: number;
@@ -57,7 +56,7 @@ export default function PhotoList() {
         .select("*", { count: "exact" })
         .order("id", { ascending: false });
 
-      if (searchKeyword.trim() !== "") {
+      if (searchKeyword.trim()) {
         query = query.ilike("title", `%${searchKeyword}%`);
       }
 
@@ -66,6 +65,7 @@ export default function PhotoList() {
       if (error) {
         console.error(error);
         Swal.fire("게시물을 불러오지 못했습니다.");
+        setLoading(false);
         return;
       }
 
@@ -104,6 +104,12 @@ export default function PhotoList() {
   if (endPage - startPage + 1 < pageGroupSize) {
     startPage = Math.max(1, endPage - pageGroupSize + 1);
   }
+
+  // 게시글 삭제 후 목록 업데이트
+  const handleDelete = (id: number) => {
+    setPosts((prev) => prev.filter((post) => post.id !== id));
+    setSelectedPostId(null);
+  };
 
   if (loading) return <LoadingSpinner />;
 
@@ -177,6 +183,7 @@ export default function PhotoList() {
             postId={selectedPostId}
             onClose={() => setSelectedPostId(null)}
             onViewUpdate={handleViewUpdate}
+            onDelete={handleDelete}
           />
         )}
       </section>

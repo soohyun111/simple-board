@@ -75,11 +75,12 @@ export default function Write() {
           <button
             type="button"
             className="btn-cancel"
+            disabled={loading}
             onClick={() => navigate("-1")}
           >
             취소
           </button>
-          <button type="submit" className="btn-submit">
+          <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? "등록중..." : "등록"}
           </button>
         </div>

@@ -71,22 +71,18 @@ export default function PhotoWrite() {
           .from("images")
           .upload(filePath, file);
 
-        if (uploadError) {
-          console.error(uploadError);
-          continue;
-        }
+        if (uploadError) throw uploadError;
 
         const { data } = supabase.storage.from("images").getPublicUrl(filePath);
 
-        const imageUrl = data.publicUrl;
-
         if (i === 0) {
-          thumbnailUrl = imageUrl;
+          thumbnailUrl = data.publicUrl;
         }
 
         await supabase.from("photo_images").insert({
           post_id: post.id,
-          image_url: imageUrl,
+          image_url: data.publicUrl,
+          storage_path: filePath,
           order_index: i,
         });
       }
@@ -152,11 +148,12 @@ export default function PhotoWrite() {
           <button
             type="button"
             className="btn-cancel"
+            disabled={loading}
             onClick={() => navigate(-1)}
           >
             취소
           </button>
-          <button type="submit" className="btn-submit">
+          <button type="submit" className="btn-submit" disabled={loading}>
             {loading ? "등록중..." : "등록"}
           </button>
         </div>
