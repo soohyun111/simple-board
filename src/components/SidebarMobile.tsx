@@ -1,11 +1,11 @@
 import { useLocation, Link } from "react-router-dom";
 import {
   House,
-  Bell,
   Logs,
   Image,
   ExternalLink,
   PencilLine,
+  FileHeart,
   X,
 } from "lucide-react";
 import "./SidebarMobile.css";
@@ -44,11 +44,6 @@ export default function SidebarMobile({ isOpen, onClose }: Props) {
                 <span className="sidebar-text">홈</span>
               </Link>
 
-              <Link to="/" className="sidebar-item" onClick={onClose}>
-                <Bell />
-                <span className="sidebar-text">공지사항</span>
-              </Link>
-
               <Link to="/posts" className="sidebar-item" onClick={onClose}>
                 <Logs />
                 <span className="sidebar-text">자유게시판</span>
@@ -57,6 +52,11 @@ export default function SidebarMobile({ isOpen, onClose }: Props) {
               <Link to="/photos" className="sidebar-item" onClick={onClose}>
                 <Image />
                 <span className="sidebar-text">사진게시판</span>
+              </Link>
+
+              <Link to="/guestBooks" className="sidebar-item" onClick={onClose}>
+                <FileHeart />
+                <span className="sidebar-text">방명록</span>
               </Link>
 
               <div className="sidebar-header" onClick={onClose}>

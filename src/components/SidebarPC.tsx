@@ -1,11 +1,11 @@
 import { useLocation, Link } from "react-router-dom";
 import {
   House,
-  Bell,
   Logs,
   Image,
   ExternalLink,
   PencilLine,
+  FileHeart,
 } from "lucide-react";
 import "./SidebarPC.css";
 
@@ -28,11 +28,6 @@ export default function SidebarPC() {
               <span className="sidebar-text">홈</span>
             </Link>
 
-            <Link to="/" className="sidebar-item">
-              <Bell />
-              <span className="sidebar-text">공지사항</span>
-            </Link>
-
             <Link to="/posts" className="sidebar-item">
               <Logs />
               <span className="sidebar-text">자유게시판</span>
@@ -41,6 +36,11 @@ export default function SidebarPC() {
             <Link to="/photos" className="sidebar-item">
               <Image />
               <span className="sidebar-text">사진게시판</span>
+            </Link>
+
+            <Link to="/guestBooks" className="sidebar-item">
+              <FileHeart />
+              <span className="sidebar-text">방명록</span>
             </Link>
           </nav>
 

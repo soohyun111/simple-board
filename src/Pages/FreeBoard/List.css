@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .title-group {
@@ -118,9 +118,13 @@
 
 .post-title{
   text-align: left !important;
-  min-width: 300px;
 }
 
+.post-id,
+.post-date,
+.post-view{
+  width: 100px;
+}
 
 .post-link{
   cursor: pointer;

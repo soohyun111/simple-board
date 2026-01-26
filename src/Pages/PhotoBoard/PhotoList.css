@@ -70,6 +70,7 @@
   color: #666;
   margin-bottom: 10px;
   line-height: 1.4;
+  white-space: pre-wrap;
 }
 
 /* 메타 */

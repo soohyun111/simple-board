@@ -34,15 +34,29 @@ body{
   max-width: 90vw !important;
 }
 
+.swal2-html-container{
+  padding : 0;
+}
+
+.swal2-textarea{
+  margin: 0 0 10px;
+  width: 300px;
+}
+
+.swal2-input{
+  margin: 0 auto;
+  width: 300px;
+}
+
 .swal2-title {
-  padding: 3rem 3rem 1rem;
+  padding: 40px 0 20px;
   font-size: 20px !important;
   font-weight: 700;
 }
 
 .swal2-confirm,
 .swal2-cancel {
-  width: 200px;
+  width: 150px;
   height: 50px;
   font-size: 20px !important;
   padding: 10px 26px !important;

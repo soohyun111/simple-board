@@ -1,0 +1,97 @@
+.guestbook-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.guestbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #f2f4f6;
+  border-radius: 0.375rem;
+  background-color: #f2f4f6;
+  padding : 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row input,
+.form-row textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.form-row textarea {
+  resize: none;
+  height: 80px;
+}
+
+.submit-btn {
+  font-weight: 600;
+  background: #735c4e;
+  color: #ffffff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #584133 ;
+}
+
+.guestbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding : 0 20px;
+}
+
+.guestbook-item {
+  padding: 15px 25px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  white-space: pre-wrap;
+}
+
+.item-header {
+  display: flex;
+  gap : 10px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.author {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 13px;
+  color: #666;
+}
+
+.content {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.actions .edit,
+.actions .delete {
+  color: #666;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}

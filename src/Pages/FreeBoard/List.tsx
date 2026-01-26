@@ -123,10 +123,10 @@ export default function List() {
         <table className="board-table">
           <thead>
             <tr>
-              <th>번호</th>
+              <th className="post-id">번호</th>
               <th className="post-title">제목</th>
-              <th>작성일</th>
-              <th>조회수</th>
+              <th className="post-date">작성일</th>
+              <th className="post-view">조회수</th>
             </tr>
           </thead>
 
@@ -148,14 +148,16 @@ export default function List() {
                     )
                   }
                 >
-                  <td>{post.id}</td>
+                  <td className="post-id">{post.id}</td>
                   <td className="post-title">
-                    {post.title.length > 15
-                      ? post.title.slice(0, 15) + "..."
+                    {post.title.length > 20
+                      ? post.title.slice(0, 20) + "..."
                       : post.title}
                   </td>
-                  <td>{new Date(post.created_at).toLocaleDateString()}</td>
-                  <td>{post.views ?? 0}</td>
+                  <td className="post-date">
+                    {new Date(post.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="post-view">{post.views ?? 0}</td>
                 </tr>
               ))
             )}
