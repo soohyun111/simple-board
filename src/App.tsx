@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Banner from "./components/Banner";
 import Header from "./components/Header";
 import SidebarPC from "./components/SidebarPC";
 import SidebarMobile from "./components/SidebarMobile";
@@ -13,6 +12,7 @@ import PhotoList from "./Pages/PhotoBoard/PhotoList";
 import PhotoWrite from "./Pages/PhotoBoard/PhotoWrite";
 import PhotoEdit from "./Pages/PhotoBoard/PhotoEdit";
 import GuestBook from "./Pages/GuestBook/GuestList";
+import Main from "./Pages/Main/Main";
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,7 +23,6 @@ export default function App() {
         isSidebarOpen={isSidebarOpen}
         onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
       />
-      <Banner />
 
       <div className="app-body">
         <SidebarPC />
@@ -34,6 +33,8 @@ export default function App() {
 
         <main className="app-list">
           <Routes>
+            <Route path="/" element={<Main />} />
+
             <Route path="/posts" element={<List />} />
             <Route path="/posts/:id" element={<Detail />} />
             <Route path="/write" element={<Write />} />

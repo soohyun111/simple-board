@@ -7,16 +7,20 @@ interface HeaderProps {
   onToggleSidebar: () => void;
 }
 
-
-export default function Header({isSidebarOpen, onToggleSidebar}: HeaderProps) {
+export default function Header({
+  isSidebarOpen,
+  onToggleSidebar,
+}: HeaderProps) {
   return (
     <header className="header">
-      <button className="mobile-menu-button" onClick={onToggleSidebar}> 
+      <button className="mobile-menu-button" onClick={onToggleSidebar}>
         {isSidebarOpen ? <X /> : <Menu />}
       </button>
 
       <div className="header-group">
-        <a href="/"> <img src={logo}/> </a>
+        <a href="/">
+          <img src={logo} />
+        </a>
       </div>
     </header>
   );

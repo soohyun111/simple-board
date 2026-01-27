@@ -16,6 +16,8 @@
 
 /* 카드 */
 .photo-card {
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   border-radius: 12px;
   overflow: hidden;
@@ -53,6 +55,9 @@
 
 /* 카드 본문 */
 .photo-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 14px;
 }
 
@@ -79,6 +84,7 @@
   justify-content: space-between;
   font-size: 12px;
   color: #999;
+  margin-top: auto;
 }
 
 .empty {

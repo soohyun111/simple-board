@@ -66,6 +66,8 @@
   gap : 10px;
   align-items: center;
   margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #ddd;
 }
 
 .author {
@@ -94,4 +96,11 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
+  text-decoration: none;
 }
+
+.actions .edit:hover,
+.actions .delete:hover {
+ text-decoration: underline;
+}
+

@@ -5,7 +5,7 @@
 
   background-color: #735c4e;
   color: #ffffff;
-  padding: 1rem;
+  padding: 12px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
@@ -15,6 +15,11 @@
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
+}
+
+.header-group img {
+  width: 100px;
+  height: auto;
 }
 
 /* 모바일에서만 보이는 메뉴버튼*/

@@ -35,12 +35,13 @@ body{
 }
 
 .swal2-html-container{
-  padding : 0;
+  padding : 10px 0;
 }
 
 .swal2-textarea{
   margin: 0 0 10px;
   width: 300px;
+  font-size: 17px;
 }
 
 .swal2-input{
