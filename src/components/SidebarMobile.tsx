@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import {
   House,
   Logs,
@@ -8,6 +8,8 @@ import {
   FileHeart,
   X,
 } from "lucide-react";
+import { supabase } from "../lib/supabase";
+import Swal from "sweetalert2";
 import "./SidebarMobile.css";
 
 type Props = {
@@ -17,12 +19,28 @@ type Props = {
 
 export default function SidebarMobile({ isOpen, onClose }: Props) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   // 현재 URL에 따라 글쓰기 페이지 경로를 결정
   const getWritePath = () => {
     if (location.pathname.includes("/photo")) return "/photoWrite";
     return "/write";
   };
+
+  // 로그인 여부 확인 (글쓰기)
+  async function handleWriteClick() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) {
+      Swal.fire("로그인 후 이용해주세요.");
+      return;
+    }
+
+    onClose();
+    navigate(getWritePath());
+  }
 
   return (
     <>
@@ -92,12 +110,10 @@ export default function SidebarMobile({ isOpen, onClose }: Props) {
               </a>
 
               <aside>
-                <Link to={getWritePath()}>
-                  <button className="write-button" onClick={onClose}>
-                    <PencilLine />
-                    <span>글쓰기</span>
-                  </button>
-                </Link>
+                <button className="write-button" onClick={handleWriteClick}>
+                  <PencilLine />
+                  <span>글쓰기</span>
+                </button>
               </aside>
             </nav>
           </div>

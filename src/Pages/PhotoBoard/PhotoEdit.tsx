@@ -17,6 +17,7 @@ export default function PhotoEdit() {
   const [content, setContent] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [checkedAuth, setCheckedAuth] = useState(false);
 
   // 파일명의 한글/공백/특수문자 제거
   const normalizeFileName = (name: string) => {
@@ -24,9 +25,28 @@ export default function PhotoEdit() {
     return `${crypto.randomUUID()}.${ext}`;
   };
 
+  // 로그인 여부 확인
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        Swal.fire("로그인 후 이용해주세요.").then(() => {
+          navigate(-1);
+        });
+        return;
+      }
+      setCheckedAuth(true);
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   // 기존 게시글 + 이미지 불러오기
   useEffect(() => {
-    if (!postId) return;
+    if (!checkedAuth || !postId) return;
 
     const fetchPost = async () => {
       const { data: post } = await supabase
@@ -61,7 +81,9 @@ export default function PhotoEdit() {
       setLoading(false);
     };
     fetchPost();
-  }, [postId, navigate]);
+  }, [checkedAuth, postId, navigate]);
+
+  if (!checkedAuth) return null;
 
   const handleChange = ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList);

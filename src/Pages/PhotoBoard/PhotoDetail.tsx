@@ -45,8 +45,16 @@ export default function PhotoDetail({
   const [post, setPost] = useState<PhotoPost | null>(null);
   const [images, setImages] = useState<PhotoImage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const hasIncreased = useRef<number | null>(null);
+
+  // 로그인 확인 여부 (버튼 노출)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session);
+    });
+  }, []);
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -182,17 +190,19 @@ export default function PhotoDetail({
           <span>{new Date(post.created_at).toLocaleDateString()}</span>
           <span>조회수 {post.views ?? 0}</span>
           <span>
-            <div className="modal-right-buttons">
-              <button
-                className="btn"
-                onClick={() => navigate(`/photoEdit/${post.id}`)}
-              >
-                수정
-              </button>
-              <button className="btn delete" onClick={handleDelete}>
-                삭제
-              </button>
-            </div>
+            {isLoggedIn && (
+              <div className="modal-right-buttons">
+                <button
+                  className="btn"
+                  onClick={() => navigate(`/photoEdit/${post.id}`)}
+                >
+                  수정
+                </button>
+                <button className="btn delete" onClick={handleDelete}>
+                  삭제
+                </button>
+              </div>
+            )}
           </span>
         </div>
       </div>

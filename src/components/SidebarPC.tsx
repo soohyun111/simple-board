@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import {
   House,
   Logs,
@@ -7,10 +7,14 @@ import {
   PencilLine,
   FileHeart,
 } from "lucide-react";
+import { supabase } from "../lib/supabase";
+import Swal from "sweetalert2";
+import LoginPC from "./LoginPC";
 import "./SidebarPC.css";
 
 export default function SidebarPC() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   // 현재 URL에 따라 글쓰기 페이지 경로를 결정
   const getWritePath = () => {
@@ -18,10 +22,25 @@ export default function SidebarPC() {
     return "/write";
   };
 
+  // 로그인 여부 확인 (글쓰기)
+  async function handleWriteClick() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) {
+      Swal.fire("로그인 후 이용해주세요.");
+      return;
+    }
+
+    navigate(getWritePath());
+  }
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-wrapper">
         <div className="sidebar">
+          <LoginPC />
           <nav className="sidebar-nav">
             <Link to="/" className="sidebar-item">
               <House />
@@ -71,12 +90,10 @@ export default function SidebarPC() {
             </a>
           </nav>
           <aside>
-            <Link to={getWritePath()}>
-              <button className="write-button">
-                <PencilLine />
-                <span>글쓰기</span>
-              </button>
-            </Link>
+            <button className="write-button" onClick={handleWriteClick}>
+              <PencilLine />
+              <span>글쓰기</span>
+            </button>
           </aside>
         </div>
       </div>

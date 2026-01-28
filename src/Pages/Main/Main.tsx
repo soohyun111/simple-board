@@ -31,7 +31,6 @@ export default function Main() {
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
 
   const [loading, setLoading] = useState(true);
-  const [photoImageLoaded, setPhotoImageLoaded] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -103,21 +102,11 @@ export default function Main() {
           </header>
 
           <div className="main-photo-grid">
-            {!photoImageLoaded &&
-              Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="photo-skeleton" />
-              ))}
-            {photoPosts.map((photo, index) => (
+            {photoPosts.map((photo) => (
               <img
                 key={photo.id}
                 src={photo.thumbnail_url}
                 loading="lazy"
-                style={{ display: photoImageLoaded ? "block" : "none" }}
-                onLoad={() => {
-                  if (index === photoPosts.length - 1) {
-                    setPhotoImageLoaded(true);
-                  }
-                }}
                 onClick={() => setSelectedPostId(photo.id)}
               />
             ))}

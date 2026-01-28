@@ -23,6 +23,7 @@ export default function Detail() {
   const [prevPost, setPrevPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 다시 List로 돌아갈 때 검색어와 현재 페이지 유지
   const page = Number(searchParams.get("page")) || 1;
@@ -30,6 +31,13 @@ export default function Detail() {
 
   // React StrictMode에서 useEffect가 2번 실행되는 경우를 대비
   const lastFetchedId = useRef<string | null>(null);
+
+  // 로그인 확인 여부 (버튼 노출)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session);
+    });
+  }, []);
 
   // 게시글 상세조회
   useEffect(() => {
@@ -171,14 +179,19 @@ export default function Detail() {
           </button>
         </div>
 
-        <div className="right-buttons">
-          <button className="btn" onClick={() => navigate(`/edit/${post.id}`)}>
-            수정
-          </button>
-          <button className="btn delete" onClick={handleDelete}>
-            삭제
-          </button>
-        </div>
+        {isLoggedIn && (
+          <div className="right-buttons">
+            <button
+              className="btn"
+              onClick={() => navigate(`/edit/${post.id}`)}
+            >
+              수정
+            </button>
+            <button className="btn delete" onClick={handleDelete}>
+              삭제
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

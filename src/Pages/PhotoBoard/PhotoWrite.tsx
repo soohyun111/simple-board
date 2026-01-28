@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
 import { PencilLine } from "lucide-react";
@@ -15,6 +15,28 @@ export default function PhotoWrite() {
   const [content, setContent] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(false);
+  const [checkedAuth, setCheckedAuth] = useState(false);
+
+  // 로그인 여부 확인 (글쓰기)
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        Swal.fire("로그인 후 이용해주세요.").then(() => {
+          navigate(-1);
+        });
+        return;
+      }
+      setCheckedAuth(true);
+    };
+
+    checkAuth();
+  }, [navigate]);
+
+  if (!checkedAuth) return null;
 
   // 파일명의 한글/공백/특수문자 제거
   const normalizeFileName = (name: string) => {

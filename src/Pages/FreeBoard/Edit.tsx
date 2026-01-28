@@ -13,9 +13,29 @@ export default function Edit() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
+  const [checkedAuth, setCheckedAuth] = useState(false);
+
+  // 로그인 여부 확인
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        Swal.fire("로그인 후 이용해주세요.").then(() => {
+          navigate(-1);
+        });
+        return;
+      }
+      setCheckedAuth(true);
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   useEffect(() => {
-    if (!id) return;
+    if (!checkedAuth || !id) return;
 
     // 수정할 게시글 조회
     const fetchPost = async () => {
@@ -37,7 +57,9 @@ export default function Edit() {
     };
 
     fetchPost();
-  }, [id, postId, navigate]);
+  }, [checkedAuth, id, postId, navigate]);
+
+  if (!checkedAuth) return null;
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
