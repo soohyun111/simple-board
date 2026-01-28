@@ -55,6 +55,7 @@
   margin-top : 30px;
   margin-bottom: 16px;
   margin :0 auto;
+  pointer-events: none; 
 }
 
 .image-frame {
