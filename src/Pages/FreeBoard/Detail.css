@@ -78,6 +78,10 @@
 }
 
 @media (max-width: 768px) {
+  .detail-title {
+  font-size: 1.2rem;
+}
+
   .detail-actions {
     border-top: 1px solid #ddd;
     flex-direction: column;

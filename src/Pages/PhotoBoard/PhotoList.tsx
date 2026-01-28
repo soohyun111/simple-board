@@ -160,13 +160,19 @@ export default function PhotoList() {
 
                 <div className="photo-card-body">
                   <h3 className="photo-card-title">{post.title}</h3>
-
-                  <p className="photo-card-desc">
-                    {post.content.length > 60
-                      ? post.content.slice(0, 60) + "..."
-                      : post.content}
-                  </p>
-
+                  <p
+                    className="photo-card-desc"
+                    data-pc={
+                      post.content.length > 60
+                        ? post.content.slice(0, 60) + "..."
+                        : post.content
+                    }
+                    data-mobile={
+                      post.content.length > 30
+                        ? post.content.slice(0, 30) + "..."
+                        : post.content
+                    }
+                  ></p>
                   <div className="photo-card-meta">
                     <span>
                       {new Date(post.created_at).toLocaleDateString()}

@@ -29,11 +29,20 @@ export default function Main() {
   const [photoPosts, setPhotoPosts] = useState<PhotoPost[]>([]);
   const [guestBooks, setGuestBooks] = useState<GuestBook[]>([]);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [photoLimit, setPhotoLimit] = useState(5);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
+
+    const mq = window.matchMedia("(max-width: 768px)");
+    const updatePhotoLimit = () => {
+      setPhotoLimit(mq.matches ? 4 : 5);
+    };
+
+    updatePhotoLimit();
+    mq.addEventListener("change", updatePhotoLimit);
 
     const fetchData = async () => {
       setLoading(true);
@@ -48,7 +57,7 @@ export default function Main() {
           .from("photo_posts")
           .select("id, thumbnail_url")
           .order("created_at", { ascending: false })
-          .limit(5),
+          .limit(photoLimit),
 
         supabase
           .from("guestbooks")
@@ -64,6 +73,7 @@ export default function Main() {
       if (guest.data) setGuestBooks(guest.data);
 
       setLoading(false);
+      mq.removeEventListener("change", updatePhotoLimit);
     };
 
     fetchData();
@@ -71,7 +81,7 @@ export default function Main() {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [photoLimit]);
 
   // 글자 수 많으면 자르기
   const truncateText = (text: string, maxLength: number) => {
@@ -87,7 +97,7 @@ export default function Main() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="board-container">
+    <div className="main-board-container">
       <div className="main">
         <Banner />
         <section className="main-board">

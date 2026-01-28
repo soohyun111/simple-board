@@ -149,11 +149,19 @@ export default function List() {
                   }
                 >
                   <td className="post-id">{post.id}</td>
-                  <td className="post-title">
-                    {post.title.length > 20
-                      ? post.title.slice(0, 20) + "..."
-                      : post.title}
-                  </td>
+                  <td
+                    className="post-title"
+                    data-pc={
+                      post.title.length > 20
+                        ? post.title.slice(0, 20) + "..."
+                        : post.title
+                    }
+                    data-mobile={
+                      post.title.length > 10
+                        ? post.title.slice(0, 10) + "..."
+                        : post.title
+                    }
+                  ></td>
                   <td className="post-date">
                     {new Date(post.created_at).toLocaleDateString()}
                   </td>

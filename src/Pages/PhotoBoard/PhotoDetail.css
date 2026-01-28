@@ -21,6 +21,9 @@
   animation: modalFadeIn 0.2s ease;
 }
 
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
 
 @keyframes modalFadeIn {
   from {

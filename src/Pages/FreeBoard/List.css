@@ -125,6 +125,10 @@
   text-decoration: underline;
 }
 
+.post-title::before {
+  content: attr(data-pc);
+}
+
 .post-id,
 .post-date,
 .post-view{
@@ -159,11 +163,19 @@
 }
 
 
-
 /* 모바일에선 번호 숨기기 */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .board-table th:nth-child(1),
   .board-table td:nth-child(1){
     display: none; 
   }
+
+  .post-title::before {
+    content: attr(data-mobile);
+  }
+
+  .post-view{
+    width: 80px;
+  }
+ 
 }

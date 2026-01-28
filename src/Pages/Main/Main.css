@@ -1,3 +1,11 @@
+.main-board-container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem; 
+}
+
 .main {
   margin: 0 auto;
   padding: 0 16px;
@@ -6,15 +14,11 @@
   gap: 20px;
 }
 
-/* 상단 2컬럼 */
-
 .top-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
-
-/* 공통 Board */
 
 .main-board {
   border: 1px solid #e5e7eb;
@@ -133,6 +137,14 @@
 /* 반응형 */
 
 @media (max-width: 768px) {
+  .main-board-container{
+    padding: 2rem 0;
+  }
+  
+  .main-photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
   .top-row {
     grid-template-columns: 1fr;
   }
@@ -140,7 +152,7 @@
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
+  
   .title {
     max-width: 65%;
   }

@@ -7,7 +7,6 @@
   padding: 20px;
 }
 
-
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -78,6 +77,10 @@
   white-space: pre-wrap;
 }
 
+.photo-card-desc::before {
+  content: attr(data-pc);
+}
+
 /* 메타 */
 .photo-card-meta {
   display: flex;
@@ -91,4 +94,18 @@
   text-align: center;
   color: #888;
   padding: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .photo-card-desc::before {
+    content: attr(data-mobile);
+  }
+
+  .photo-list {
+  padding: 20px 0;
+  }
+
+  .photo-thumb {
+    height: 130px;
+  }
 }
