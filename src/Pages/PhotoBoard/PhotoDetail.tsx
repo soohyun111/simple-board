@@ -6,9 +6,6 @@ import { Navigation, Pagination } from "swiper/modules";
 import { X } from "lucide-react";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "./PhotoDetail.css";
 
 type Props = {
@@ -48,6 +45,12 @@ export default function PhotoDetail({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const hasIncreased = useRef<number | null>(null);
+
+  useEffect(() => {
+    import("swiper/css");
+    import("swiper/css/navigation");
+    import("swiper/css/pagination");
+  }, []);
 
   // 로그인 확인 여부 (버튼 노출)
   useEffect(() => {
